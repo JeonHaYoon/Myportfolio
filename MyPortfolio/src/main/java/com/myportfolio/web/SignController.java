@@ -1,0 +1,45 @@
+//회원가입컨트롤
+
+package com.myportfolio.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.net.URLEncoder;
+
+@Controller
+public class SignController {
+
+    //    @RequestMapping(value="/sign/add", method={RequestMethod.GET,RequestMethod.POST})
+    @GetMapping("/sign/add")//신규회원가입화면
+    public String signup(){
+        return "signup";
+    }
+
+
+    //    signInfo로 넘어가서 회원가입한 정보들이 저장됨
+//    @RequestMapping(value="/sign/save", method= RequestMethod.POST)
+//    회원가입을 post 형식으로만 받게 하기 위해  위와같이 설정, 아래와 같이 표현가능
+    @PostMapping("/sign/save")
+    public String save(User user, Model m) throws Exception{
+//        1. 유효성 검사
+        if(!isValid(user)){
+            String msg= URLEncoder.encode("ID를 잘못입력하셨습니다.", "utf-8"); //url 한글 인코딩
+
+           m.addAttribute("msg",msg);
+           return "redirect:/sign/add";           //   두문장을 아래한문장으로 표현가능 URL재작성(rewriting)
+//         return "redirect:/sign/add?msg="+msg; //URL재작성(rewriting)
+
+        }
+//        2. db에 신규회원 정보 저장
+        return "signInfo";
+    }
+
+    private boolean isValid(User user) {
+        return true;
+    }
+}
