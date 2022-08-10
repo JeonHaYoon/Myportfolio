@@ -168,7 +168,7 @@
 <div class="board_wrap">
     <div class="board_title">
         <strong>후기 게시판</strong>
-        <p>캠핑장을 이용해본 후기를 작성해주세요.</p>
+        <p>캠핑장을 이용해본 후기를 작성해주세요!</p>
     </div>
     <div class="board_write_wrap">
         <div class="board_write">
