@@ -166,7 +166,7 @@
     <table class="board_list">
         <div class="board_title">
             <strong>후기 게시판</strong>
-            <p>캠핑장을 이용해본 후기를 작성해주세요.</p>
+            <p>캠핑장을 이용해본 후기를 작성해주세요</p>
         </div>
         <caption>게시판 목록</caption>
         <thead>
@@ -185,7 +185,7 @@
             <!-- 프로그래밍할때는 tr을 하나만 남겨두고 프로그램을 짠다. 데이터를 가져오는 변수를 넣으면 자동입력됨.-->
             <td class="num">5</td>
             <td class="tit">
-                <a href="#">강아지랑 캠핑</a>
+                <a href="#">강아지랑 캠핑!</a>
             </td>
             <td>트리독스</td>
             <td>관리자</td>
