@@ -1,6 +1,7 @@
 package com.myportfolio.web;
 
-import junit.framework.TestCase;
+import com.myportfolio.web.dao.UserDao;
+import com.myportfolio.web.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

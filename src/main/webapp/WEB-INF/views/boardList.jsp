@@ -118,12 +118,17 @@
     }
 
     /* 현재 활성화된 페이지 */
-    .board_list_wrap .paging a.num.on {
+    /*.board_list_wrap .paging a.num.on {*/
+    /*    background: burlywood;*/
+    /*    color: white;*/
+
+    /*}*/
+
+    .board_list_wrap .paging a.on {
         background: burlywood;
         color: white;
 
     }
-
 
 
     .write {
@@ -181,69 +186,67 @@
         </thead>
 
         <tbody>
+<%--        <tr>--%>
+<%--            <!-- 프로그래밍할때는 tr을 하나만 남겨두고 프로그램을 짠다. 데이터를 가져오는 변수를 넣으면 자동입력됨.-->--%>
+<%--            <td class="num">5</td>--%>
+<%--            <td class="tit">--%>
+<%--                <a href="#">강아지랑 캠핑!</a>--%>
+<%--            </td>--%>
+<%--            <td>트리독스</td>--%>
+<%--            <td>관리자</td>--%>
+<%--            <td>2022-5-11</td>--%>
+<%--            <td>555</td>--%>
+<%--        </tr>--%>
+
+
+<%--반복문 --%>
+    <c:forEach var="board" items="${list}">
         <tr>
-            <!-- 프로그래밍할때는 tr을 하나만 남겨두고 프로그램을 짠다. 데이터를 가져오는 변수를 넣으면 자동입력됨.-->
-            <td class="num">5</td>
-            <td class="tit">
-                <a href="#">강아지랑 캠핑!</a>
-            </td>
-            <td>트리독스</td>
-            <td>관리자</td>
-            <td>2022-5-11</td>
-            <td>555</td>
+            <td>${board.bno}</td>
+            <td>${board.title}</td>
+            <td>${board.camp_name}</td>
+            <td>${board.writer}</td>
+            <td>${board.reg_date}</td>
+            <td>${board.view_cnt}</td>
         </tr>
-        <tr>
-            <td class="num">4</td>
-            <td class="tit">
-                <a href="#">강아지랑 캠핑가고 싶어요</a>
-            </td>
-            <td>비손농장</td>
-            <td>관리자</td>
-            <td>2022-4-11</td>
-            <td>123</td>
-        </tr></style>
-        <tr>
-            <td class="num">3</td>
-            <td class="tit">
-                <a href="#">도그캠퍼입니다</a>
-            </td>
-            <td>국민여가캠핑장</td>
-            <td>관리자</td>
-            <td>2022-3-11</td>
-            <td>222</td>
-        </tr>
-        <tr>
-            <td class="num">2</td>
-            <td class="tit">
-                <a href="#">댕댕이는 사랑입니다</a>
-            </td>
-            <td>노지캠핑장</td>
-            <td>관리자</td>
-            <td>2022-2-11</td>
-            <td>333</td>
-        </tr>
-        <tr>
-            <td class="num">1</td>
-            <td class="tit">
-                <a href="#">우리집 강아지는 앙꼬</a>
-            </td>
-            <td>트리독스</td>
-            <td>관리자</td>
-            <td>2022-1-11</td>
-            <td>111</td>
-        </tr>
+    </c:forEach>
         </tbody>
     </table>
 
     <!-- 아래 페이지이동  -->
     <div class="paging">
-        <a href="#" class="bt">첫 페이지 </a>
-        <a href="#" class="bt">이전 페이지</a>
-        <a href="#" class="num on">1</a>
-        <a href="#" class="num">2</a>
-        <a href="#" class="num">3</a>
-        <a href="#" class="bt">다음 페이지</a>
-        <a href="#" class="bt">마지막 페이지</a>
+        <a href="<c:url value='/board/list?page=1&pageSize=${ph.pageSize}'/>" class="bt">첫 페이지 </a>
+
+        <c:if test="${ph.showPrev}">
+        <a href="<c:url value='/board/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>" class="bt">이전 페이지</a>
+        </c:if>
+
+       <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+               <a href="<c:url value='/board/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+       </c:forEach>
+
+<%--        <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">--%>
+<%--            <li class="paginate_button ${pageMaker.cri.pageNum == num? "active":"" }">--%>
+<%--                <a href="${num }">${num}</a>--%>
+<%--            </li>--%>
+<%--        </c:forEach>--%>
+
+
+<%--        현재페이지 좀 다르게 하고 싶은데--%>
+<%--               <a href="<c:url value='/board/list?page${ph.page}&pageSize=${ph.pageSize}'/>" class="num on"/>--%>
+<%--           </c:if>--%>
+
+
+
+
+
+
+        <c:if test="${ph.showNext}">
+        <a href="<c:url value='/board/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>" class="bt">다음 페이지</a>
+        </c:if>
+
+        <a href="<c:url value='/board/list?page=${ph.totalPage}&pageSize=${ph.pageSize}'/>" class="bt">마지막 페이지</a>
+
     </div>
 
     <div class="bt_wrap">
