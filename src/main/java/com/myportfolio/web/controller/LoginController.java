@@ -72,10 +72,26 @@ public class LoginController {
     }
 
     private boolean loginCheck(String id, String pswd) {
-        User user=userDao.selectUser(id);
 
-        if(user==null) return false;
-//        return user.getPswd().equals(pswd);
-        return "asdf".equals(id) && "123456".equals(pswd);
+        User user = null;
+
+        try {
+            user = userDao.selectUser(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return user!=null && user.getPswd().equals(pswd);
+
+//        User user=userDao.selectUser(id);
+//
+//        if(user==null) return false;
+////        return user.getPswd().equals(pswd);
+//        return "jjjjj".equals(id) && "123456".equals(pswd);
     }
 }
+
+
+
+//        return "asdf".equals(id) && "1234".equals(pwd);

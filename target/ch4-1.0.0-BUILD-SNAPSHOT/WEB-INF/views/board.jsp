@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css"  href="/resources/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 
 
@@ -145,71 +146,85 @@ font-size: 1.4rem;
     width: 100%;
     text-align: center;
 }
-
-
 </style>
 
 
 <title>게시판</title>
 
 <div class="board_wrap">
+
     <div class="board_title">
         <strong>후기 게시판</strong>
         <p>캠핑장을 이용해본 후기를 작성해주세요.</p>
     </div>
 
-    <div class="board_view_wrap">
-        <div class="board_view">
+    <form action="" id="form" class="board_view_wrap">
 
-            <div class="title">
-                글제목이 들어갑니다.
-            </div>
+        <div class="board_view">
+            <div class="title">${boardDto.title}</div>
             <div class="info">
                 <dl>
                     <dt>번호</dt>
-                    <dd>1</dd>
+                    <dd>${boardDto.bno}</dd>
                 </dl>
                 <dl>
                     <dt>캠핑장이름</dt>
-                    <dd>트리독스</dd>
+                    <dd>${boardDto.camp_name}</dd>
                 </dl>
                 <dl>
-                    <dt>아이디</dt>
-                    <dd>asdf</dd>
+                    <dt>글쓴이</dt>
+                    <dd>${boardDto.writer}</dd>
                 </dl>
-                <dl>
-                    <dt>1박비용</dt>
-                    <dd>4만원</dd>
-                </dl>
+<%--                <dl>--%>
+<%--                    <dt>1박비용</dt>--%>
+<%--                    <dd>4만원</dd>--%>
+<%--                </dl>--%>
                 <dl>
                     <dt>작성일</dt>
-                    <dd>2022.12.12</dd>
+                    <dd>${boardDto.reg_date}</dd>
                 </dl>
                 <dl>
                     <dt>조회수</dt>
-                    <dd>31</dd>
+                    <dd>${boardDto.view_cnt}</dd>
                 </dl>
 
 
             </div>
             <div class="cont">
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.<br>
-                글 내용이 들어갑니다.
+                ${boardDto.cont}
             </div>
         </div>
+
         <div class="bt_wrap">
-            <button type="button" class="list" href="#">목록</button>
-            <button type="button" class="edit" href="#">수정</button>
+            <button type="button" id="listBtn" class="list" href="#">목록</button>
+            <button type="button" id="editBtn" class="edit" href="#">수정</button>
+            <button type="button" id="removeBtn" class="remove" href="#">삭제</button>
         </div>
 
-    </div>
+    </form>
+
 </div>
 
+<script>
+
+    $(document).ready(function(){
+        $('#listBtn').on("click",function (){
+          <%--  alert("listBtn clicked");  클릭 기능이 제대로 되는지 확인 --%>
+            location.href="<c:url value='/board/list'/>?page=${page}&pageSize=${pageSize}";
+        //목록 버튼 눌렀을때 기존의 목록 페이지로 돌아가는 것, jquery사용
+        });
+
+        //삭제버, 포스트,매서드 전송
+        $('#removeBtn').on("click",function(){
+                if(!confirm("정말로 삭제하시겠습니까?")) return;
+
+            let form = $("#form");
+            form.attr("action", "<c:url value='/board/remove'/>?page=${page}&pageSize=${pageSize}");
+            form.attr("method","post");
+            form.submit();
+
+           });
+    });
+</script>
 </body>
 </html>

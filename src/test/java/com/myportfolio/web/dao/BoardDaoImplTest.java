@@ -76,15 +76,15 @@ public class BoardDaoImplTest {
     @Test
     public void insertTest() throws Exception {
         boardDao.deleteAll();
-        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "jjj","fa");
         assertTrue(boardDao.insert(boardDto)==1);
 
-        boardDto = new BoardDto("aaa", "hello", "j","fa");
+        boardDto = new BoardDto("aaa", "hello", "jjj","fa");
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.count()==2);
 
         boardDao.deleteAll();
-        boardDto = new BoardDto("aaa", "hello", "j","fa");
+        boardDto = new BoardDto("aaa", "hello", "jjj","fa");
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.count()==1);
     }
@@ -199,7 +199,7 @@ public class BoardDaoImplTest {
     public void insertTestData() throws Exception{
         boardDao.deleteAll();
         for(int i=1;i<=220;i++){
-            BoardDto boardDto=new BoardDto("title"+1,"no content", "asdf","aaa");
+            BoardDto boardDto=new BoardDto("title"+1,"no content", "jjjjj","aaa");
             boardDao.insert(boardDto);
         }
      }

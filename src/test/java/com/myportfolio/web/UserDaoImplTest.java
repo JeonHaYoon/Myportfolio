@@ -38,7 +38,7 @@ public class UserDaoImplTest  {
 
         userDao.deleteAll();
 
-        User user=new User("asdf", "123456","mm","abc@bo.com","gg","male", new Date(cal.getTimeInMillis()) );
+        User user=new User("jjjjj", "123456","mm","abc@bo.com","gg","male", new Date(cal.getTimeInMillis()) );
         int rowCnt=userDao.insertUser(user);
         assertTrue(rowCnt==1);
 

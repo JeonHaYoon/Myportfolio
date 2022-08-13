@@ -35,6 +35,8 @@
     </div>
 </div>
 
+
+
 <style>
 
     /* boardlist */
@@ -179,7 +181,7 @@
             <th>번호</th>
             <th>제목</th>
             <th>캠핑장 이름</th>
-            <th>아이디</th>
+            <th>글쓴이</th>
             <th>작성일</th>
             <th>조회수</th>
         </tr>
@@ -203,7 +205,7 @@
     <c:forEach var="board" items="${list}">
         <tr>
             <td>${board.bno}</td>
-            <td>${board.title}</td>
+            <td><a href="<c:url value='/board/read?bno=${board.bno}&page=${page}&pageSize=${pageSize}'/>">${board.title}</a></td>
             <td>${board.camp_name}</td>
             <td>${board.writer}</td>
             <td>${board.reg_date}</td>
@@ -212,6 +214,7 @@
     </c:forEach>
         </tbody>
     </table>
+
 
     <!-- 아래 페이지이동  -->
     <div class="paging">
@@ -223,7 +226,6 @@
 
        <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
                <a href="<c:url value='/board/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
-
        </c:forEach>
 
 <%--        <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">--%>
@@ -236,11 +238,6 @@
 <%--        현재페이지 좀 다르게 하고 싶은데--%>
 <%--               <a href="<c:url value='/board/list?page${ph.page}&pageSize=${ph.pageSize}'/>" class="num on"/>--%>
 <%--           </c:if>--%>
-
-
-
-
-
 
         <c:if test="${ph.showNext}">
         <a href="<c:url value='/board/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>" class="bt">다음 페이지</a>
@@ -256,6 +253,13 @@
     </div>
 
 </div>
+
+<script>
+    let msg="${msg}"
+    if (msg=="삭제가 완료되었습니다.") alert("성공적으로 삭제되었습니다.");
+    if (msg=="삭제되지 않았습니다..") alert("삭제에 실패했습니다..");
+
+</script>
 
 </body>
 </html>
