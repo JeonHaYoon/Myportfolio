@@ -14,14 +14,18 @@ public class BoardDto {
     private Date up_date;           //업데이트일
     private String camp_name;       //캠핑장이름
 
+
+    private int camp_cost;
+
     public BoardDto(){}
 
 //    필수값의 변수들
-    public BoardDto(String title, String cont, String writer,String camp_name) {
+    public BoardDto(String title, String cont, String writer,String camp_name,int camp_cost) {
         this.title = title;
         this.cont = cont;
         this.writer = writer;
         this.camp_name=camp_name;
+        this.camp_cost=camp_cost;
     }
 
     public Integer getBno() {
@@ -95,6 +99,13 @@ public class BoardDto {
     public void setCamp_name(String camp_name) {
         this.camp_name = camp_name;
     }
+    public int getCamp_cost() {
+        return camp_cost;
+    }
+
+    public void setCamp_cost(int camp_cost) {
+        this.camp_cost = camp_cost;
+    }
 
     @Override
     public String toString() {
@@ -108,6 +119,7 @@ public class BoardDto {
                 ", reg_date=" + reg_date +
                 ", up_date=" + up_date +
                 ", camp_name='" + camp_name + '\'' +
+                ", camp_cost='" + camp_cost +
                 '}';
     }
 

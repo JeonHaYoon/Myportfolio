@@ -248,7 +248,7 @@
     </div>
 
     <div class="bt_wrap">
-        <button type="button" class="write" href="#">글쓰기</button>
+        <button type="button" class="write" onclick="location.href=('/board/write');">글쓰기</button>
 
     </div>
 
@@ -256,9 +256,9 @@
 
 <script>
     let msg="${msg}"
-    if (msg=="삭제가 완료되었습니다.") alert("성공적으로 삭제되었습니다.");
-    if (msg=="삭제되지 않았습니다..") alert("삭제에 실패했습니다..");
-
+     if(msg=="DEL_OK") alert("성공적으로 삭제되었습니다.");
+    if(msg=="DEL_ERR") alert("삭제에 실패했습니다..");
+    if(msg=="WRT_OK") alert("성공적으로 등록되었습니다.");
 </script>
 
 </body>

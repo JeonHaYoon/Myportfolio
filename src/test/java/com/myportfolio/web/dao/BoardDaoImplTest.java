@@ -23,7 +23,7 @@ public class BoardDaoImplTest {
         boardDao.deleteAll();
         assertTrue(boardDao.count()==0);
 
-        BoardDto boardDto = new BoardDto("aaa","hello","j","fa");
+        BoardDto boardDto = new BoardDto("aaa","hello","j","fa", 9999);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.count()==1);
 
@@ -36,12 +36,12 @@ public class BoardDaoImplTest {
         boardDao.deleteAll();
         assertTrue(boardDao.count()==0);
 
-        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.deleteAll()==1);
         assertTrue(boardDao.count()==0);
 
-        boardDto = new BoardDto("aaa", "hello", "j","fa");
+        boardDto = new BoardDto("aaa", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.deleteAll()==2);
@@ -53,7 +53,7 @@ public class BoardDaoImplTest {
         boardDao.deleteAll();
         assertTrue(boardDao.count()==0);
 
-        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
         Integer bno = boardDao.selectAll().get(0).getBno();
         assertTrue(boardDao.delete(bno, boardDto.getWriter())==1);
@@ -76,15 +76,15 @@ public class BoardDaoImplTest {
     @Test
     public void insertTest() throws Exception {
         boardDao.deleteAll();
-        BoardDto boardDto = new BoardDto("aaa", "hello", "jjj","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "jjj","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
 
-        boardDto = new BoardDto("aaa", "hello", "jjj","fa");
+        boardDto = new BoardDto("aaa", "hello", "jjj","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.count()==2);
 
         boardDao.deleteAll();
-        boardDto = new BoardDto("aaa", "hello", "jjj","fa");
+        boardDto = new BoardDto("aaa", "hello", "jjj","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.count()==1);
     }
@@ -97,7 +97,7 @@ public class BoardDaoImplTest {
         List<BoardDto> list = boardDao.selectAll();
         assertTrue(list.size() == 0);
 
-        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
 
         list = boardDao.selectAll();
@@ -113,7 +113,7 @@ public class BoardDaoImplTest {
         boardDao.deleteAll();
         assertTrue(boardDao.count()==0);
 
-        BoardDto boardDto = new BoardDto("aaa2", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa2", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
 
         Integer bno = boardDao.selectAll().get(0).getBno();
@@ -127,7 +127,7 @@ public class BoardDaoImplTest {
         boardDao.deleteAll();
 
         for (int i = 1; i <= 10; i++) {
-            BoardDto boardDto = new BoardDto(""+i, "hello"+i, "j","fa");
+            BoardDto boardDto = new BoardDto(""+i, "hello"+i, "j","fa",9999);
             boardDao.insert(boardDto);
         }
 
@@ -160,7 +160,7 @@ public class BoardDaoImplTest {
     @Test
     public void updateTest() throws Exception {
         boardDao.deleteAll();
-        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
 
         Integer bno = boardDao.selectAll().get(0).getBno();
@@ -178,7 +178,7 @@ public class BoardDaoImplTest {
         boardDao.deleteAll();
         assertTrue(boardDao.count()==0);
 
-        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa");
+        BoardDto boardDto = new BoardDto("aaa", "hello", "j","fa",9999);
         assertTrue(boardDao.insert(boardDto)==1);
         assertTrue(boardDao.count()==1);
 
@@ -199,7 +199,7 @@ public class BoardDaoImplTest {
     public void insertTestData() throws Exception{
         boardDao.deleteAll();
         for(int i=1;i<=220;i++){
-            BoardDto boardDto=new BoardDto("title"+1,"no content", "jjjjj","aaa");
+            BoardDto boardDto=new BoardDto("title"+i,"no content", "jjjjj","aaa",9999);
             boardDao.insert(boardDto);
         }
      }

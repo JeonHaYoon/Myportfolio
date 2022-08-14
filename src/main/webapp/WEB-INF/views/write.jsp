@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" type="text/css"  href="/resources/css/style.css">
 </head>
 
@@ -88,7 +88,7 @@
 
 
     .board_write .title dd{
-        width: calc(100%-100px);
+        width: calc(100% - 100px);
     }
 
 
@@ -171,41 +171,59 @@
         <p>캠핑장을 이용해본 후기를 작성해주세요!</p>
     </div>
     <div class="board_write_wrap">
-        <div class="board_write">
+        <form action="" method="post" id="form" class="board_write">
             <div class="title">
                 <dl>
                     <dt>제목</dt>
-                    <dd><input type="text" placeholder="제목 입력"></dd>
+                    <dd><input type="text" name="title" placeholder="제목 입력" name="title"></dd>
                 </dl>
             </div>
             <div class="info">
-                <dl>
-                    <dt>아이디</dt>
-                    <dd><input type="text" placeholder="아이디 입력"></dd>
-                </dl>
+
                 <dl>
                     <dt>캠핑장 이름</dt>
-                    <dd><input type="text" placeholder="캠핑장이름 입력"></dd>
+                    <dd><input type="text" name="camp_name" placeholder="캠핑장이름 입력" ></dd>
                 </dl>
                 <dl>
                     <dt>1박 비용</dt>
-                    <dd><input type="text" placeholder="주중/주말 비용 입력"></dd>
+                    <dd><input type="text" placeholder="주중/주말 비용 입력">원</dd>
                 </dl>
             </div>
             <div class="cont">
-                <textarea placeholder="캠핑장 후기를 적어주세요"></textarea>
+                <textarea placeholder="캠핑장 후기를 적어주세요" name="cont" ></textarea>
 
             </div>
-        </div>
+
 
         <div class="bt_wrap">
-            <button type="button" class="write" href="#">등록</button>
-            <button type="button" class="cancel" href="#">취소</button>
+            <button type="button" id="writeBtn"  class="write" href="#">등록</button>
+            <button type="button" id="cancelBtn" class="cancel" onclick="location.href='/board/list'">취소</button>
 
         </div>
-
+    </form>
     </div>
+</div>
 
+<script>
+
+    $(document).ready(function(){
+    $('#writeBtn').on("click",function(){
+    let form = $("#form");
+    form.attr("action", "<c:url value='/board/write'/>");
+    form.attr("method","post");
+    form.submit();
+    });
+
+
+    });
+
+
+
+</script>
+<script>
+    let msg="${msg}"
+    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다.다시 시도해주세요");
+</script>
 
 </div>
 

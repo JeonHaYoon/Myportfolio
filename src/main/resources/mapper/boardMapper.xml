@@ -7,20 +7,20 @@
 <!--    resultType mybatis에서 alias 해줘서 간결하게 작성 -->
     <select id="select" parameterType="int" resultType="BoardDto">
         select bno, title, cont,  writer, view_cnt, comment_cnt,
-               reg_date, up_date, camp_name
+               reg_date, up_date, camp_name,camp_cost
         from board
         where bno= #{bno}
     </select>
 
 <!--    게시판 목록 보여줄떄 등록일 번호 역순으로 정렬해-->
     <select id ="selectAll" resultType="BoardDto">
-        SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name
+        SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name,camp_cost
         FROM board
         ORDER BY reg_date DESC, bno DESC
     </select>
 
     <sql id="selectFromBoard">
-        SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name
+        SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name,camp_cost
         FROM board
     </sql>
 
@@ -37,7 +37,8 @@ UPDATE board
 SET title=#{title},
     cont=#{cont},
     camp_name=#{camp_name},
-    up_date=now()
+    up_date=now(),
+    camp_cost=#{camp_cost}
 WHERE bno=#{bno} and writer=#{writer}
 </update>
 

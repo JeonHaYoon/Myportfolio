@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" type="text/css"  href="/resources/css/style.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
 </head>
 
 
@@ -35,6 +36,7 @@
     </div>
 </div>
 
+<title>게시판</title>
 
 <style>
     .board_title{
@@ -54,76 +56,76 @@
         width:1000px;
         margin: 100px auto;
     }
-.board_view{
-width:1000px;
-border-top:2px solid burlywood;
+    .board_view{
+        width:1000px;
+        border-top:2px solid burlywood;
 
-}
+    }
 
-.board_view .title{
-padding: 20px 15px;
-border-bottom: 1px dashed beige;
-font-size:2rem;
-}
+    .board_view .title{
+        padding: 20px 15px;
+        border-bottom: 1px dashed beige;
+        font-size:2rem;
+    }
 
-.board_view .info{
-padding:15px;
-border-bottom:1px solid beige;
-font-size:0;
-}
+    .board_view .info{
+        padding:15px;
+        border-bottom:1px solid beige;
+        font-size:0;
+    }
 
-.board_view .info dl{
-position: relative;
-display:inline-block;
-padding:0 20px;
-}
+    .board_view .info dl{
+        position: relative;
+        display:inline-block;
+        padding:0 20px;
+    }
 
-.board_view .info dl:first-child{
-padding-left:0;
+    .board_view .info dl:first-child{
+        padding-left:0;
 
-}
+    }
 
-.board_view .info dl::before{
-content:"";
-width:1px;
-height: 13px;
-position:absolute;
-top:1px;
-left:0;
-display:block;
-color:#ddd;
-}
+    .board_view .info dl::before{
+        content:"";
+        width:1px;
+        height: 13px;
+        position:absolute;
+        top:1px;
+        left:0;
+        display:block;
+        color:#ddd;
+    }
 
-.board_view .info dl:first-child::before{
-display:none;
-}
+    .board_view .info dl:first-child::before{
+        display:none;
+    }
 
-.board_view .info dl dt,
-.board_view .info dl dd{
-display:inline-block;
-font-size:1.4rem;
-
-
-}
+    .board_view .info dl dt,
+    .board_view .info dl dd{
+        display:inline-block;
+        font-size:1.4rem;
 
 
-.board_view .info dl dt{
-color:darkgoldenrod;
+    }
 
-}
 
-.board_view .info dl dd{
-color:burlywood;
-margin-left:10px;
+    .board_view .info dl dt{
+        color:darkgoldenrod;
 
-}
+    }
 
-.board_view .cont{
-padding:15px;
-border-bottom:1px solid black;
-line-height:160%;
-font-size: 1.4rem;
-}
+    .board_view .info dl dd{
+        color:burlywood;
+        margin-left:10px;
+
+    }
+
+    .board_view .cont{
+        padding:15px;
+        border-bottom:1px solid black;
+        line-height:160%;
+        font-size: 1.4rem;
+    }
 
 
     .list, .edit {
@@ -141,90 +143,62 @@ font-size: 1.4rem;
         cursor: pointer;
         display: inline-block;
     }
-.bt_wrap{
-    /*  버튼 중앙에 정렬 시키는법, 버튼 display:inline-block 같이 작성 */
-    width: 100%;
-    text-align: center;
-}
+    .bt_wrap{
+        /*  버튼 중앙에 정렬 시키는법, 버튼 display:inline-block 같이 작성 */
+        width: 100%;
+        text-align: center;
+    }
 </style>
 
-
-<title>게시판</title>
-
 <div class="board_wrap">
-
     <div class="board_title">
         <strong>후기 게시판</strong>
         <p>캠핑장을 이용해본 후기를 작성해주세요.</p>
     </div>
 
-    <form action="" id="form" class="board_view_wrap">
+<form action="" id="form" class="board_view_wrap">
+    <dt>번호</dt>
+    <input type="text" name="bno" value="${boardDto.bno}" readonly="readonly">
+    <dt>제목</dt>
+    <input type="text" name="title" value="${boardDto.title}" readonly="readonly">
+    <dt>캠핑장이름</dt>
+    <input type="text" name="camp_name" value="${boardDto.camp_name}" readonly="readonly">
+    <dt>1박 비용</dt>
+    <input type="text" name="camp_cost" value="${boardDto.camp_cost}" readonly="readonly" >원
+    <dt>글쓴이</dt>
+    <input type="text" name="writer" value="${boardDto.writer}" readonly="readonly">
 
-        <div class="board_view">
-            <div class="title">${boardDto.title}</div>
-            <div class="info">
-                <dl>
-                    <dt>번호</dt>
-                    <dd>${boardDto.bno}</dd>
-                </dl>
-                <dl>
-                    <dt>캠핑장이름</dt>
-                    <dd>${boardDto.camp_name}</dd>
-                </dl>
-                <dl>
-                    <dt>글쓴이</dt>
-                    <dd>${boardDto.writer}</dd>
-                </dl>
-<%--                <dl>--%>
-<%--                    <dt>1박비용</dt>--%>
-<%--                    <dd>4만원</dd>--%>
-<%--                </dl>--%>
-                <dl>
-                    <dt>작성일</dt>
-                    <dd>${boardDto.reg_date}</dd>
-                </dl>
-                <dl>
-                    <dt>조회수</dt>
-                    <dd>${boardDto.view_cnt}</dd>
-                </dl>
+    <dt>내용</dt>
+    <textarea name="cont" readonly="readonly" >${boardDto.cont}</textarea>
+    <button type="button" id="modifyBtn" class="btn" onclick="location.href='/board/modify?bno=${boardDto.bno}'" >수정</button>
+    <button type="button" id="removeBtn" class="btn" > 삭제</button>
+    <button type="button" id="listBtn" class="btn">목록</button>
 
-
-            </div>
-            <div class="cont">
-                ${boardDto.cont}
-            </div>
-        </div>
-
-        <div class="bt_wrap">
-            <button type="button" id="listBtn" class="list" href="#">목록</button>
-            <button type="button" id="editBtn" class="edit" href="#">수정</button>
-            <button type="button" id="removeBtn" class="remove" href="#">삭제</button>
-        </div>
-
-    </form>
-
-</div>
+</form>
 
 <script>
 
     $(document).ready(function(){
         $('#listBtn').on("click",function (){
-          <%--  alert("listBtn clicked");  클릭 기능이 제대로 되는지 확인 --%>
+            <%--  alert("listBtn clicked");  클릭 기능이 제대로 되는지 확인 --%>
             location.href="<c:url value='/board/list'/>?page=${page}&pageSize=${pageSize}";
-        //목록 버튼 눌렀을때 기존의 목록 페이지로 돌아가는 것, jquery사용
+            //목록 버튼 눌렀을때 기존의 목록 페이지로 돌아가는 것, jquery사용
         });
 
-        //삭제버, 포스트,매서드 전송
         $('#removeBtn').on("click",function(){
-                if(!confirm("정말로 삭제하시겠습니까?")) return;
-
+            if(!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $("#form");
             form.attr("action", "<c:url value='/board/remove'/>?page=${page}&pageSize=${pageSize}");
             form.attr("method","post");
             form.submit();
+        });
 
-           });
+
+
+
+
     });
 </script>
 </body>
 </html>
+

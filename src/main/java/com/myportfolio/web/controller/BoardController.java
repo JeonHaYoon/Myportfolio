@@ -24,40 +24,117 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-
-@PostMapping("/remove")
-public String remove(Integer bno, Integer page, Integer pageSize, HttpSession session, Model m, RedirectAttributes rattr){
-        String writer= (String)session.getAttribute("id");
-
-        try {
-            m.addAttribute("page",page);
-            m.addAttribute("pageSize",pageSize);
-            int rowCnt=boardService.remove(bno,writer);
-
-            if (rowCnt!=1)
-                throw new Exception("board remove error");
-
-            rattr.addFlashAttribute("msg","삭제가 완료되었습니다.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            rattr.addFlashAttribute("msg","삭제되지 않았습니다.");
-        }
-        return "redirect:/board/list";
-    }
-
     @GetMapping("/read")
     public String read(Integer bno,Integer page, Integer pageSize, Model m){
         try {
-           BoardDto boardDto= boardService.read(bno);
+            BoardDto boardDto= boardService.read(bno);
 //           m.addAttribute("BoardDto",boardDto); 아래와 같은문장
-           m.addAttribute(boardDto);
-           m.addAttribute("page",page);
-           m.addAttribute("pageSize",pageSize);
+            m.addAttribute(boardDto);
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return "board";
     }
+
+//    데이터를 받아와서 저장된 정보 받아오기
+    @GetMapping("/modify")
+    public String modify(Integer bno, Model m)throws Exception{
+        BoardDto boardDto=boardService.read(bno);
+        m.addAttribute("boardDto",boardDto);
+        return "update";
+    }
+
+    @PostMapping("/modify")
+    public String modify(BoardDto boardDto,HttpSession session,Model m, RedirectAttributes rattr){
+        String writer =(String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+
+        try {
+            int rowCnt=boardService.modify(boardDto);
+
+            if(rowCnt!=1)
+                throw new Exception("modify failed");
+
+            rattr.addFlashAttribute("msg","MOD_OK");
+
+            return "redirect:/board/list";
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute(boardDto);
+            m.addAttribute("msg","MOD_ERR");
+            return "update";
+
+        }
+    }
+//    try {
+//        boardService.modify(boardDto);
+//    } catch (Exception e) {
+//        throw new RuntimeException(e);
+//    }
+//        return "redirect:/board/list";
+
+
+//게시물등록 form
+   @GetMapping("/write")
+//게시물등록
+   public String write(){
+
+       return"write";
+   }
+
+    @PostMapping("/write")
+    public String write(BoardDto boardDto,HttpSession session,Model m, RedirectAttributes rattr){
+        String writer =(String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+        try {
+            int rowCnt=boardService.write(boardDto);
+
+            if(rowCnt!=1)
+                throw new Exception("Write failed ");
+
+            rattr.addFlashAttribute("msg","WRT_OK");
+            return "redirect:/board/list";
+
+        } catch (Exception e) {
+//            에러가 나면 입력했던 다시보내줌
+            e.printStackTrace();
+            m.addAttribute(boardDto);
+            m.addAttribute("msg","WRT_ERR");
+            return "write";
+
+        }
+    }
+
+
+    @PostMapping("/remove")
+    public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr){
+        String writer=(String)session.getAttribute("id");
+
+        try {
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
+
+            int rowCnt= boardService.remove(bno,writer);
+
+            if(rowCnt!=1)
+                throw  new Exception("board remove error");
+
+            rattr.addFlashAttribute("msg","DEL_OK");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERR");
+        }
+
+        return "redirect:/board/list";
+    }
+
+
+
 
 
 
