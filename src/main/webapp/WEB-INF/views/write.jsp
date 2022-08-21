@@ -36,7 +36,7 @@
 
 <style>
 
-    /* 게시판 글쓰기*/
+     게시판 글쓰기
 
     .board_title{
         margin-bottom: 30px;
@@ -55,14 +55,13 @@
         width:1000px;
         margin: 100px auto;
     }
+
     .board_write{
         border-top: 2px solid brown;
-
     }
 
     .board_write .title,
     .board_write .info{
-
         padding:15px;
     }
 
@@ -70,7 +69,6 @@
         border-top:1px dashed gray;
         border-bottom:1px solid black;
     }
-
 
     .board_write .title dt,
     .board_write .title dd,
@@ -81,35 +79,27 @@
         font-size:1.1rem;
     }
 
-
     .board_write .title dl{
         font-size:0;
     }
-
 
     .board_write .title dd{
         width: calc(100% - 100px);
     }
 
-
     .board_write .title input[type="text"],
     .board_write .info input[type="text"]{
         padding: 10px;
         box-sizing: border-box;
-
     }
 
     .board_write .title input[type="text"]{
         width:800px;
-
     }
-
-
 
     .board_write .title dt,
     .board_write .info dt{
         width:100px;
-
     }
 
     .board_write .info dl{
@@ -119,15 +109,10 @@
         font-size:0;
     }
 
-
-
-
-
     .board_write .cont{
         border-bottom: 1px solid black;
-
-
     }
+
     .board_write .cont textarea{
         display:block;
         padding:15px;
@@ -138,9 +123,8 @@
         resize:vertical;
     }
 
-
-    .write, .cancel {
-
+    .bt_wrap .write,
+    .bt_wrap .cancel {
         width: 80px;
         height: 30px;
         background: burlywood;
@@ -154,6 +138,7 @@
         cursor: pointer;
         display: inline-block;
     }
+
     .bt_wrap{
         /*  버튼 중앙에 정렬 시키는법, 버튼 display:inline-block 같이 작성 */
         width: 100%;
@@ -164,22 +149,22 @@
 
 <title>글쓰기</title>
 
-
 <div class="board_wrap">
     <div class="board_title">
         <strong>후기 게시판</strong>
         <p>캠핑장을 이용해본 후기를 작성해주세요!</p>
     </div>
+
     <div class="board_write_wrap">
         <form action="" method="post" id="form" class="board_write">
             <div class="title">
                 <dl>
                     <dt>제목</dt>
-                    <dd><input type="text" name="title" placeholder="제목 입력" name="title"></dd>
+                    <dd><input type="text" name="title" placeholder="제목 입력" ></dd>
                 </dl>
             </div>
-            <div class="info">
 
+            <div class="info">
                 <dl>
                     <dt>캠핑장 이름</dt>
                     <dd><input type="text" name="camp_name" placeholder="캠핑장이름 입력" ></dd>
@@ -189,43 +174,35 @@
                     <dd><input type="text" placeholder="주중/주말 비용 입력">원</dd>
                 </dl>
             </div>
+
             <div class="cont">
                 <textarea placeholder="캠핑장 후기를 적어주세요" name="cont" ></textarea>
-
             </div>
 
-
-        <div class="bt_wrap">
-            <button type="button" id="writeBtn"  class="write" href="#">등록</button>
-            <button type="button" id="cancelBtn" class="cancel" onclick="location.href='/board/list'">취소</button>
-
-        </div>
-    </form>
+            <div class="bt_wrap">
+                <button type="button" id="writeBtn"  class="write" href="#">등록</button>
+                <button type="button" id="cancelBtn" class="cancel" onclick="location.href='/board/list'">취소</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <script>
-
     $(document).ready(function(){
-    $('#writeBtn').on("click",function(){
-    let form = $("#form");
-    form.attr("action", "<c:url value='/board/write'/>");
-    form.attr("method","post");
-    form.submit();
+        $('#writeBtn').on("click",function(){
+            let form = $("#form");
+            form.attr("action", "<c:url value='/board/write'/>");
+            form.attr("method","post");
+            form.submit();
+        });
     });
-
-
-    });
-
-
-
 </script>
+
 <script>
     let msg="${msg}"
     if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다.다시 시도해주세요");
 </script>
 
 </div>
-
 </body>
 </html>

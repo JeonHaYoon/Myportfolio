@@ -14,7 +14,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css"  href="/resources/css/style.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
@@ -23,20 +22,20 @@
 
 <body>
 
-<div class="wrap">
-    <div class="intro_bg">
-        <div class="header">
-            <ul class="nav">
-                <li><a href="<c:url value='/'/>">HOME</a></li>
-                <li><a href="<c:url value='/board/list'/>">BOARD</a></li>
-                <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-                <li><a href="<c:url value='/sign/add'/>">SIGN</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+    <div class="wrap">
+       <div class="intro_bg">
+          <div class="header">
+              <ul class="nav">
+                  <li><a href="<c:url value='/'/>">HOME</a></li>
+                  <li><a href="<c:url value='/board/list'/>">BOARD</a></li>
+                  <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
+                  <li><a href="<c:url value='/sign/add'/>">SIGN</a></li>
+              </ul>
+          </div>
+       </div>
+     </div>
 
-<title>게시판</title>
+    <title>게시판</title>
 
 <style>
     .board_title{
@@ -56,6 +55,7 @@
         width:1000px;
         margin: 100px auto;
     }
+
     .board_view{
         width:1000px;
         border-top:2px solid burlywood;
@@ -104,20 +104,15 @@
     .board_view .info dl dd{
         display:inline-block;
         font-size:1.4rem;
-
-
     }
-
 
     .board_view .info dl dt{
         color:darkgoldenrod;
-
     }
 
     .board_view .info dl dd{
         color:burlywood;
         margin-left:10px;
-
     }
 
     .board_view .cont{
@@ -129,7 +124,6 @@
 
 
     .list, .edit {
-
         width: 80px;
         height: 30px;
         background: burlywood;
@@ -143,11 +137,13 @@
         cursor: pointer;
         display: inline-block;
     }
+
     .bt_wrap{
         /*  버튼 중앙에 정렬 시키는법, 버튼 display:inline-block 같이 작성 */
         width: 100%;
         text-align: center;
     }
+
 </style>
 
 <div class="board_wrap">
@@ -156,25 +152,32 @@
         <p>캠핑장을 이용해본 후기를 작성해주세요.</p>
     </div>
 
-<form action="" id="form" class="board_view_wrap">
-    <dt>번호</dt>
-    <input type="text" name="bno" value="${boardDto.bno}" readonly="readonly">
-    <dt>제목</dt>
-    <input type="text" name="title" value="${boardDto.title}" readonly="readonly">
-    <dt>캠핑장이름</dt>
-    <input type="text" name="camp_name" value="${boardDto.camp_name}" readonly="readonly">
-    <dt>1박 비용</dt>
-    <input type="text" name="camp_cost" value="${boardDto.camp_cost}" readonly="readonly" >원
-    <dt>글쓴이</dt>
-    <input type="text" name="writer" value="${boardDto.writer}" readonly="readonly">
+    <form action="" id="form" class="board_view_wrap">
+        <dt>번호</dt>
+        <input type="text" name="bno" value="${boardDto.bno}" readonly="readonly">
 
-    <dt>내용</dt>
-    <textarea name="cont" readonly="readonly" >${boardDto.cont}</textarea>
-    <button type="button" id="modifyBtn" class="btn" onclick="location.href='/board/modify?bno=${boardDto.bno}'" >수정</button>
-    <button type="button" id="removeBtn" class="btn" > 삭제</button>
-    <button type="button" id="listBtn" class="btn">목록</button>
+        <dt>제목</dt>
+        <input type="text" name="title" value="${boardDto.title}" readonly="readonly">
 
-</form>
+        <dt>캠핑장이름</dt>
+        <input type="text" name="camp_name" value="${boardDto.camp_name}" readonly="readonly">
+
+        <dt>1박 비용</dt>
+        <input type="text" name="camp_cost" value="${boardDto.camp_cost}" readonly="readonly" >원
+
+        <dt>글쓴이</dt>
+        <input type="text" name="writer" value="${boardDto.writer}" readonly="readonly">
+
+        <dt>내용</dt>
+        <textarea name="cont" readonly="readonly" >${boardDto.cont}</textarea>
+
+        <button type="button" id="modifyBtn" class="btn" onclick="location.href='/board/modify?bno=${boardDto.bno}'" >수정</button>
+        <button type="button" id="removeBtn" class="btn" > 삭제</button>
+        <button type="button" id="listBtn" class="btn">목록</button>
+
+    </form>
+</div>
+
 
 <script>
 
@@ -192,12 +195,8 @@
             form.attr("method","post");
             form.submit();
         });
-
-
-
-
-
     });
+
 </script>
 </body>
 </html>

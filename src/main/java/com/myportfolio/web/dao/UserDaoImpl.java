@@ -15,6 +15,7 @@ import java.util.Date;
 public class UserDaoImpl implements UserDao {
     @Autowired
     DataSource ds;
+
     final int FAIL = 0;
 
     @Override

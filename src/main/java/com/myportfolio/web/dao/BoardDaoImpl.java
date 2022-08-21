@@ -1,6 +1,7 @@
 package com.myportfolio.web.dao;
 
 import com.myportfolio.web.domain.BoardDto;
+import com.myportfolio.web.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,18 +13,15 @@ import java.util.Map;
 @Repository
 //BoardDao 인터페이스로 만들기, 다른것에 영향 덜주기 위함
 public class BoardDaoImpl implements BoardDao {
-//    세션 받아옴.세션주입
+//    세션 받아와서 세션주입
     @Autowired
     SqlSession session;
 
     String namespace="com.myportfolio.web.dao.BoardMapper.";
-//    boardMapper.xml에서 select의 resultType과 select id, parameterType이 일치해야함
-
 
     @Override
     public BoardDto select(int bno) throws Exception{
-        //        sql 세션을 이용해서 메서드인 selectOne을 이용해 데이터를 가져옴
-      return  session.selectOne(namespace+"select",bno);
+      return  session.selectOne(namespace+"select",bno); // sql 세션을 이용해서 메서드인 selectOne을 이용해 데이터를 가져옴
     }
 
     @Override
@@ -69,15 +67,6 @@ public class BoardDaoImpl implements BoardDao {
         return session.update(namespace + "increaseViewCnt", bno);
     } // int update(String statement, Object parameter)
 
-//    @Override
-//    public int searchResultCnt(SearchCondition sc) throws Exception {
-//        return session.selectOne(namespace + "searchResultCnt", sc);
-//    }
-//
-//    @Override
-//    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-//        return session.selectList(namespace + "searchSelectPage", sc);
-//    }
 
     @Override
     public int updateCommentCnt(Integer bno, int cnt) {
@@ -86,6 +75,18 @@ public class BoardDaoImpl implements BoardDao {
         map.put("bno", bno);
         return session.update(namespace + "updateCommentCnt", map);
     }
+
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace + "searchResultCnt", sc);
+    }
+
+    @Override
+    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectList(namespace + "searchSelectPage", sc);
+    }
+
+
 
 
 

@@ -2,6 +2,7 @@ package com.myportfolio.web.controller;
 
 import com.myportfolio.web.domain.BoardDto;
 import com.myportfolio.web.domain.PageHandler;
+import com.myportfolio.web.domain.SearchCondition;
 import com.myportfolio.web.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+//    게시물 조회기능 구현
     @GetMapping("/read")
     public String read(Integer bno,Integer page, Integer pageSize, Model m){
         try {
@@ -38,7 +40,9 @@ public class BoardController {
         return "board";
     }
 
-//    데이터를 받아와서 저장된 정보 받아오기
+
+//    게시물 수정기능 구현
+//    저장된 정보 가져오괴
     @GetMapping("/modify")
     public String modify(Integer bno, Model m)throws Exception{
         BoardDto boardDto=boardService.read(bno);
@@ -46,6 +50,7 @@ public class BoardController {
         return "update";
     }
 
+//    수정한 데이터 저장
     @PostMapping("/modify")
     public String modify(BoardDto boardDto,HttpSession session,Model m, RedirectAttributes rattr){
         String writer =(String)session.getAttribute("id");
@@ -53,15 +58,10 @@ public class BoardController {
 
         try {
             int rowCnt=boardService.modify(boardDto);
-
             if(rowCnt!=1)
                 throw new Exception("modify failed");
-
-            rattr.addFlashAttribute("msg","MOD_OK");
-
+            rattr.addFlashAttribute("msg","MOD_OK");  //   msg가 한번만 나타나게 함
             return "redirect:/board/list";
-
-
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(boardDto);
@@ -70,19 +70,10 @@ public class BoardController {
 
         }
     }
-//    try {
-//        boardService.modify(boardDto);
-//    } catch (Exception e) {
-//        throw new RuntimeException(e);
-//    }
-//        return "redirect:/board/list";
 
-
-//게시물등록 form
+//      게시글 작성 기능 구현
    @GetMapping("/write")
-//게시물등록
    public String write(){
-
        return"write";
    }
 
@@ -92,15 +83,13 @@ public class BoardController {
         boardDto.setWriter(writer);
         try {
             int rowCnt=boardService.write(boardDto);
-
             if(rowCnt!=1)
                 throw new Exception("Write failed ");
 
             rattr.addFlashAttribute("msg","WRT_OK");
             return "redirect:/board/list";
 
-        } catch (Exception e) {
-//            에러가 나면 입력했던 다시보내줌
+        } catch (Exception e) {            //  에러가 나면 입력했던 다시보내줌
             e.printStackTrace();
             m.addAttribute(boardDto);
             m.addAttribute("msg","WRT_ERR");
@@ -109,7 +98,7 @@ public class BoardController {
         }
     }
 
-
+//    게시물 삭제 기능 구현
     @PostMapping("/remove")
     public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr){
         String writer=(String)session.getAttribute("id");
@@ -120,11 +109,9 @@ public class BoardController {
 
             int rowCnt= boardService.remove(bno,writer);
 
-            if(rowCnt!=1)
+            if(rowCnt!=1)   //삭제가 잘됐는지 확인
                 throw  new Exception("board remove error");
-
             rattr.addFlashAttribute("msg","DEL_OK");
-
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg","DEL_ERR");
@@ -133,41 +120,41 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-
-
-
-
-
+// 게시판 목록
     @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
-        if (!loginCheck(request))   //로그인 안되어있으면 , 로그인화면으로 이동
-            return "redirect:/login/login?toURL="+request.getRequestURL();  //로그인 안했을때 로그인 화면으로 이동된 화면으로 이
+    public String list(SearchCondition sc,Model m, HttpServletRequest request) {
+        //Integer page, Integer pageSize, String keyword, String option
+        // 변수가 많아져서 sc로 대체하면서 pageHandler랑 다른 코드변경됨
 
+        if (!loginCheck(request))   //로그인 체크, 로그인 안됐을 경우 로그인화면으로 이동
+            return "redirect:/login/login?toURL="+request.getRequestURL();  //로그인 전 화면으로 이동
 
 //        페이지설정
-        if(page==null) page=1;
-        if(pageSize == null) pageSize=10;
+//        if(page==null) page=1;
+//        if(pageSize == null) pageSize=10;
 
         try {
 //            페이지 네비게이션
-            int totalCnt=boardService.getCount();
-            PageHandler pageHandler=new PageHandler(totalCnt, page, pageSize);
+            int totalCnt=boardService.getSearchResultCnt(sc);
+            m.addAttribute("totalCnt",totalCnt);
 
-            Map map=new HashMap();
-            map.put("offset",(page-1)*pageSize);
-            map.put("pageSize",pageSize);
+            PageHandler pageHandler=new PageHandler(totalCnt,sc);
 
-            List<BoardDto> list=boardService.getPage(map);
-            m.addAttribute("list",list);        //리스
+//            Map map=new HashMap();
+//            map.put("offset",(page-1)*pageSize);
+//            map.put("pageSize",pageSize);
+
+            List<BoardDto> list=boardService.getSearchResultPage(sc);
+            m.addAttribute("list",list);        //리스트
             m.addAttribute("ph",pageHandler);   //navipage
-            m.addAttribute("page",page);
-            m.addAttribute("pageSize",pageSize);
+//            m.addAttribute("page",page);
+//            m.addAttribute("pageSize",pageSize);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "boardList";  //그게 아니면 게시판으로 이
+        return "boardList1";  //그게 아니면 게시판으로 이
     }
 
     private boolean loginCheck(HttpServletRequest request) {
@@ -184,4 +171,3 @@ public class BoardController {
     }
 
 }
-

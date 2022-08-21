@@ -1,6 +1,7 @@
 package com.myportfolio.web.service;
 
 import com.myportfolio.web.domain.BoardDto;
+import com.myportfolio.web.domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface BoardService {
 
     int modify(BoardDto boardDto) throws Exception;
 
-//    int getSearchResultCnt(SearchCondition sc) throws Exception;
-//
-//    List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception;
+    int getSearchResultCnt(SearchCondition sc) throws Exception;
+
+    List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception;
 }

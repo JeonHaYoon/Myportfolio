@@ -12,7 +12,7 @@
         where bno= #{bno}
     </select>
 
-<!--    게시판 목록 보여줄떄 등록일 번호 역순으로 정렬해-->
+<!--    게시판 목록 보여줄 때 등록일 번호 역순으로 정렬해-->
     <select id ="selectAll" resultType="BoardDto">
         SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name,camp_cost
         FROM board
@@ -26,21 +26,21 @@
 
 
 <!--게시물 준 내용으로 인서트-->
-<insert id="insert" parameterType="BoardDto">
-INSERT INTO board(title,cont,writer,camp_name)
-VALUES (#{title}, #{cont}, #{writer}, #{camp_name})
-</insert>
+    <insert id="insert" parameterType="BoardDto">
+    INSERT INTO board(title,cont,writer,camp_name)
+    VALUES (#{title}, #{cont}, #{writer}, #{camp_name})
+    </insert>
 
 <!--    게시물 준 내용으로 업데이트-->
-<update id="update" parameterType="BoardDto">
-UPDATE board
-SET title=#{title},
-    cont=#{cont},
-    camp_name=#{camp_name},
-    up_date=now(),
-    camp_cost=#{camp_cost}
-WHERE bno=#{bno} and writer=#{writer}
-</update>
+    <update id="update" parameterType="BoardDto">
+    UPDATE board
+    SET title=#{title},
+        cont=#{cont},
+        camp_name=#{camp_name},
+        up_date=now(),
+        camp_cost=#{camp_cost}
+    WHERE bno=#{bno} and writer=#{writer}
+    </update>
 
 <!--작성자와 일치할때 삭제-->
 
@@ -60,11 +60,11 @@ WHERE bno=#{bno} and writer=#{writer}
     </delete>
 
     <!--조회수 올리는것-->
-<update id="increaseViewCnt" parameterType="int">
-UPDATE board
-SET   view_cnt = view_cnt + 1
-WHERE bno = #{bno}
-</update>
+    <update id="increaseViewCnt" parameterType="int">
+    UPDATE board
+    SET   view_cnt = view_cnt + 1
+    WHERE bno = #{bno}
+    </update>
 
 
     <select id="selectPage" parameterType="map" resultType="BoardDto">
@@ -93,32 +93,36 @@ WHERE bno = #{bno}
             <when test='option=="W"'>
                 AND writer LIKE concat('%',#{keyword},'%')
             </when>
-            <when test='option=="C"'>
-                AND camp_name LIKE concat('%',#{keyword},'%')
-            </when>
+
             <otherwise>
                 AND (title LIKE concat('%',#{keyword},'%')
-                OR content LIKE concat('%',#{keyword},'%'))
+                OR cont LIKE concat('%',#{keyword},'%'))
             </otherwise>
         </choose>
 
     </sql>
 
+<!--    <when test='option=="C"'>-->
+<!--        AND camp_name LIKE  concat('%',#{keyword},'%')-->
+<!--    </when>-->
 
-<!--    <select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDto">-->
-<!--        SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name-->
-<!--        FROM board-->
-<!--        WHERE true-->
-<!--        <include refid="searchCondition"/>-->
-<!--        ORDER BY reg_date DESC, bno DESC-->
-<!--        LIMIT #{offset}, #{pageSize}-->
-<!--    </select>-->
+<!--    게시물 검색기능-->
+<!--parameterType를 map대신 SearchCondition으로 변경, 그리고 mybatis에서 추-->
+    <!--         중복된 내용을 sql문으로 묶고,<include refid="searchCondition"/>  넣어줌 -->
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDto">
+        SELECT bno, title, cont, writer, view_cnt, comment_cnt, reg_date, camp_name, camp_cost
+        FROM board
+        WHERE true
+        <include refid="searchCondition"/>
+        ORDER BY reg_date DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
 
-<!--    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">-->
-<!--        SELECT count(*)-->
-<!--        FROM board-->
-<!--        WHERE true-->
-<!--        <include refid="searchCondition"/>-->
-<!--    </select>-->
-
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM board
+        WHERE true
+        <include refid="searchCondition"/>
+    </select>
 </mapper>
+

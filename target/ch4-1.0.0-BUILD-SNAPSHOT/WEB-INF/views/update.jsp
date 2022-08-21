@@ -56,14 +56,13 @@
     width:1000px;
     margin: 100px auto;
   }
+
   .board_write{
     border-top: 2px solid brown;
-
   }
 
   .board_write .title,
   .board_write .info{
-
     padding:15px;
   }
 
@@ -71,7 +70,6 @@
     border-top:1px dashed gray;
     border-bottom:1px solid black;
   }
-
 
   .board_write .title dt,
   .board_write .title dd,
@@ -82,35 +80,27 @@
     font-size:1.1rem;
   }
 
-
   .board_write .title dl{
     font-size:0;
   }
-
 
   .board_write .title dd{
     width: calc(100% - 100px);
   }
 
-
   .board_write .title input[type="text"],
   .board_write .info input[type="text"]{
     padding: 10px;
     box-sizing: border-box;
-
   }
 
   .board_write .title input[type="text"]{
     width:800px;
-
   }
-
-
 
   .board_write .title dt,
   .board_write .info dt{
     width:100px;
-
   }
 
   .board_write .info dl{
@@ -120,15 +110,10 @@
     font-size:0;
   }
 
-
-
-
-
   .board_write .cont{
     border-bottom: 1px solid black;
-
-
   }
+
   .board_write .cont textarea{
     display:block;
     padding:15px;
@@ -139,9 +124,7 @@
     resize:vertical;
   }
 
-
   .write, .cancel {
-
     width: 80px;
     height: 30px;
     background: burlywood;
@@ -155,6 +138,7 @@
     cursor: pointer;
     display: inline-block;
   }
+
   .bt_wrap{
     /*  버튼 중앙에 정렬 시키는법, 버튼 display:inline-block 같이 작성 */
     width: 100%;
@@ -165,33 +149,36 @@
 
 <title>수정하기</title>
 
-
 <div class="board_wrap">
-  <div class="board_title">
-    <strong>후기 게시판</strong>
-    <p>캠핑장을 이용해본 후기를 작성해주세요!</p>
-  </div>
-  <div class="board_write_wrap">
-    <form action="" method="post" id="form" name="modify"class="board_write">
+    <div class="board_title">
+        <strong>후기 게시판</strong>
+        <p>캠핑장을 이용해본 후기를 작성해주세요!</p>
+    </div>
 
-        <dt>번호</dt>
-        <input type="text" name="bno" value="${boardDto.bno}" readonly="readonly" >
-        <dt>제목</dt>
-        <input type="text" name="title" value="${boardDto.title}" >
-        <dt>캠핑장이름</dt>
-        <input type="text" name="camp_name" value="${boardDto.camp_name}" >
-        <dt>1박 비용</dt>
-        <input type="text" name="camp_cost" value="${boardDto.camp_cost}" >원
-        <dt>글쓴이</dt>
-        <input type="text" name="writer" value="${boardDto.writer}" readonly="readonly">
+    <div class="board_write_wrap">
+        <form action="" method="post" id="form" name="modify"class="board_write">
+            <dt>번호</dt>
+            <input type="text" name="bno" value="${boardDto.bno}" readonly="readonly" >
 
-        <dt>내용</dt>
-        <textarea name="cont">${boardDto.cont}</textarea>
-        <button type="button" id="modifyBtn" class="btn" >수정</button>
-        <button type="button" id="removeBtn" class="btn" > 삭제</button>
-        <button type="button" id="listBtn" class="btn">목록</button>
+            <dt>제목</dt>
+            <input type="text" name="title" value="${boardDto.title}" >
 
-      </form>
+            <dt>캠핑장이름</dt>
+            <input type="text" name="camp_name" value="${boardDto.camp_name}" >
+
+            <dt>1박 비용</dt>
+            <input type="text" name="camp_cost" value="${boardDto.camp_cost}" >원
+
+            <dt>글쓴이</dt>
+            <input type="text" name="writer" value="${boardDto.writer}" readonly="readonly">
+
+            <dt>내용</dt>
+            <textarea name="cont">${boardDto.cont}</textarea>
+
+            <button type="button" id="modifyBtn" class="btn" >수정</button>
+            <button type="button" id="removeBtn" class="btn" > 삭제</button>
+            <button type="button" id="listBtn" class="btn">목록</button>
+        </form>
 
 <%--      --%>
 <%--      <div class="title">--%>
@@ -224,26 +211,20 @@
 
 <%--      </div>--%>
 <%--    </form>--%>
-  </div>
+    </div>
 </div>
 
 <script>
-
-  $(document).ready(function(){
-    $('#modifyBtn').on("click",function(){
-      let form = $("#form");
-      form.attr("action", "<c:url value='/board/modify'/>");
-      form.attr("method","post");
-      form.submit();
+    $(document).ready(function(){
+        $('#modifyBtn').on("click",function(){
+            let form = $("#form");
+            form.attr("action", "<c:url value='/board/modify'/>");
+            form.attr("method","post");
+            form.submit();
+        });
     });
-
-  });
-
-
-
 </script>
 
 </div>
-
 </body>
 </html>

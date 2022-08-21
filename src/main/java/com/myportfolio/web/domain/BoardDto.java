@@ -13,9 +13,7 @@ public class BoardDto {
     private Date reg_date;          //작성일
     private Date up_date;           //업데이트일
     private String camp_name;       //캠핑장이름
-
-
-    private int camp_cost;
+    private int camp_cost;          //캠핑장비용
 
     public BoardDto(){}
 
